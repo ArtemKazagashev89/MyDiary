@@ -1,0 +1,32 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}Создать запись{% endblock %}
+
+{% block content %}
+<div class="container-fluid"
+     style="background-image: url('/media/image/e07e6d44024731058d9526c4b33a0c6b.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+<div class="container">
+    <h1 class="mt-4">Создать запись</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Содержание</label>
+            <textarea class="form-control" id="content" name="content" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+    </form>
+    <a href="{% url 'diary:home' %}" class="btn btn-secondary mt-3">Назад</a>
+</div>
+</div>
+{% endblock %}

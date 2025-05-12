@@ -1,0 +1,53 @@
+{% extends 'diary/base.html' %}
+
+{% block content %}
+<div class="container-fluid"
+     style="background-image: url('/media/image/12140857349f3689ecaa3d7e34e88b7a.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+<div class="container text-center">
+    <h1 class="mt-4">Добро пожаловать в MyDiary!</h1>
+    <p>Здесь вы можете вести свои записи.</p>
+
+    <form method="GET" action="{% url 'diary:index' %}" class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" name="title" class="form-control" placeholder="Поиск по заголовку" />
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="content" class="form-control" placeholder="Поиск по содержимому" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Поиск</button>
+    </form>
+
+    <div class="row">
+        {% for year in years %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ year.year }}</h5>
+                        <ul class="list-group">
+                            {% for month in months %}
+                                {% if month.year == year.year %}
+                                    <li class="list-group-item">
+                                        <a href="{% url 'diary:index' %}?date={{ month|date:'Y-m' }}">{{ month|date:'F' }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'diary:create_entry' %}" class="btn btn-primary">Создать новую запись</a>
+</div>
+</div>
+{% endblock %}

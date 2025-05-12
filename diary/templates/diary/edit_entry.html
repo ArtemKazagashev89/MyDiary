@@ -1,0 +1,32 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}Редактировать запись{% endblock %}
+
+{% block content %}
+<div class="container-fluid"
+     style="background-image: url('/media/image/nebraska_0v81a6-265____.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+<div class="container">
+    <h1 class="mt-4">Редактировать запись</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ entry.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Содержание</label>
+            <textarea class="form-control" id="content" name="content" required>{{ entry.content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+    </form>
+    <a href="{% url 'diary:index' %}" class="btn btn-secondary mt-3">Назад</a>
+</div>
+</div>
+{% endblock %}
