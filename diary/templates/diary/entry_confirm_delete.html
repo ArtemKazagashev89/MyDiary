@@ -1,0 +1,24 @@
+{% extends 'diary/base.html' %}
+
+{% block content %}
+<div class="container-fluid"
+     style="background-image: url('/media/image/2714541444.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+<div class="container">
+    <h2 class="mt-4">Подтверждение удаления записи</h2>
+    <p>Вы уверены, что хотите удалить запись "{{ object.title }}"?</p>
+
+    <form method="POST" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'diary:index' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+</div>
+{% endblock %}
