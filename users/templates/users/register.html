@@ -1,0 +1,39 @@
+{% extends 'diary/base.html' %}
+
+{% block content %}
+<div class="container-fluid"
+     style="background-image: url('/media/image/e07e6d44024731058d9526c4b33a0c6b.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+    <div class="container text-center">
+        <h2 class="mt-5">Регистрация</h2>
+        <form method="POST" class="mt-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <p class="mt-3">
+            Уже зарегистрированы? <a href="{% url 'users:login' %}" class="text-white">Войдите в аккаунт</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
